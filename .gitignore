@@ -1,0 +1,5 @@
+*.pem
+workspace/
+__pycache__/
+*.pyc
+.env
