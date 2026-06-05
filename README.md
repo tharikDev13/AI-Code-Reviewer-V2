@@ -12,3 +12,4 @@ AI-powered GitHub Pull Request reviewer for iOS projects.
 - Ollama Integration
 - AI Review Comments
 - Testing diff extraction.
+- Testing webhook automation.
