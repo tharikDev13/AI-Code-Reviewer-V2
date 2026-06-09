@@ -34,6 +34,7 @@ class LoginViewController: UIViewController {
 
             print("User Loaded")
             print(data)
+            print("User: \(user)")
         }
     }
 }
