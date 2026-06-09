@@ -16,3 +16,12 @@ AI-powered GitHub Pull Request reviewer for iOS projects.
 - Testing for Security.
 - Test for AI review.
 - tESTINGGG
+val password = "admin123"
+
+GlobalScope.launch {
+    textView.text = "Hello"
+}
+
+val user = users[0]
+
+Log.d("TOKEN", token)
