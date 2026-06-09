@@ -34,7 +34,7 @@ PERFORMANCE
 - Blocking network calls
 - Unnecessary object creation
 - Expensive loops
-- Main thread blocking
+- Main thread blocking()
 
 ANDROID
 - GlobalScope usage
