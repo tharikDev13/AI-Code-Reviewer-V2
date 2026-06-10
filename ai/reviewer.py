@@ -10,9 +10,14 @@ def review_code(
     )
 
     payload = {
-        "model": "qwen2.5:1.5b",
+        "model": "qwen2.5-coder:3b",
         "prompt": prompt,
-        "stream": False
+        "stream": False,
+        "options": {
+            "temperature": 0,
+            "top_p": 0.1,
+            "num_predict": 512
+        }
     }
 
     response = requests.post(
@@ -20,6 +25,8 @@ def review_code(
         json=payload,
         timeout=120
     )
+
+    response.raise_for_status()
 
     data = response.json()
 

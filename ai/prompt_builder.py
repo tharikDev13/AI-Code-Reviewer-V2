@@ -8,63 +8,83 @@ def build_review_prompt(
     )
 
     prompt = f"""
-You are a senior mobile code reviewer.
+You are a Staff Software Engineer performing a pull request review.
 
-Review this pull request.
+Review ONLY the code changes in the diff.
 
 Changed Files:
 
 {files}
 
-Review Checklist:
+Focus on finding REAL issues only.
+
+Check for:
 
 SECURITY
 - Hardcoded passwords
 - Hardcoded API keys
+- Secrets or tokens
 - Sensitive data in logs
 - Unsafe authentication
 
 BUGS
-- Force unwraps
-- Force try
+- Force unwraps (!)
+- Force try (try!)
 - Null pointer risks
-- Array index out of bounds
+- Index out of bounds
+- Unhandled errors
+- Crash risks
 
 PERFORMANCE
 - Blocking network calls
-- Unnecessary object creation
+- Main thread blocking
 - Expensive loops
-- Main thread blocking()
+- Unnecessary allocations
+
+IOS
+- UI updates from background threads
+- Retain cycles
+- Strong self capture
+- Threading issues
 
 ANDROID
 - GlobalScope usage
-- Memory leaks
 - Lifecycle issues
-
-IOS
-- Force unwraps
-- Retain cycles
-- UI updates from background threads
+- Memory leaks
+- Coroutine misuse
 
 Rules:
 
-- Do not explain the code.
-- Only report findings.
-- If no issues exist return:
+1. Do NOT explain the code.
+2. Do NOT summarize the PR.
+3. Do NOT provide praise.
+4. Do NOT output SUMMARY.
+5. Do NOT output ISSUES.
+6. Do NOT output SUGGESTIONS.
+7. Report only findings.
+8. Ignore style issues.
+9. Ignore formatting issues.
+10. Ignore comments.
+
+Output examples:
+
+[HIGH] Hardcoded API key detected.
+
+[HIGH] Hardcoded password detected.
+
+[MEDIUM] Potential IndexOutOfBoundsException from users[0].
+
+[MEDIUM] Force unwrap detected using URL(...)!.
+
+[MEDIUM] Force try detected using try!.
+
+[MEDIUM] UI updated from background thread.
+
+If no issues exist return EXACTLY:
+
 No significant issues found.
 
-Output Format:
-
-SUMMARY:
-...
-
-ISSUES:
-...
-
-SUGGESTIONS:
-...
-
-DIFF:
+Pull Request Diff:
 
 {diff}
 """
