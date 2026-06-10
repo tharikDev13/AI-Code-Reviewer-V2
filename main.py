@@ -3,6 +3,7 @@ from fastapi import FastAPI, Request
 from github.repository_manager import clone_repository
 from github.diff_extractor import get_diff
 from github.changed_files import get_changed_files
+from github.pr_commenter import post_pr_comment
 
 from ai.prompt_builder import build_review_prompt
 from ai.reviewer import review_code
@@ -261,6 +262,28 @@ async def github_webhook(request: Request):
             print(
                 "\n=====================\n"
             )
+
+            print(
+                "\nPosting Comment To GitHub..."
+            )
+
+            try:
+
+                post_pr_comment(
+                    repo_name,
+                    pr_number,
+                    review
+                )
+
+                print(
+                    "GitHub Comment Posted"
+                )
+
+            except Exception as e:
+
+                print(
+                    f"GitHub Comment Error: {e}"
+                )
 
         else:
 

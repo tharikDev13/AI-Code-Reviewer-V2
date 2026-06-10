@@ -6,6 +6,7 @@ class LoginViewController: UIViewController {
 
     let apiKey = "sk_live_123456"
     let password = "admin123"
+    let secret = "token123"
 
     var users: [String] = []
 
