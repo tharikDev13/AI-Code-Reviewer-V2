@@ -12,4 +12,4 @@ AI-powered GitHub Pull Request reviewer for iOS projects.
 - Ollama Integration
 - AI Review Comments
 - ANOTHER TESTING.
-- Simple testing in feature branch.
+- Simple testing in feature branch
