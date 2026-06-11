@@ -13,7 +13,7 @@ class TestVC: UIViewController {
 
             let data = try! Data(
                 contentsOf: URL(
-                    string: "https://api.test.commm"
+                    string: "https://api.test.commmm"
                 )!
             )
 
