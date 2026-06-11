@@ -1,41 +1,29 @@
 import UIKit
 
-class LoginViewController: UIViewController {
-
-    @IBOutlet weak var nameLabel: UILabel!
+class TestVC: UIViewController {
 
     let apiKey = "sk_live_123456"
     let password = "admin123"
-    let secret = "token123"
 
     var users: [String] = []
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        fetchUser()
-    }
-
-    func fetchUser() {
+    func loadUser() {
 
         DispatchQueue.global().async {
 
             let data = try! Data(
                 contentsOf: URL(
-                    string: "https://api.example.com/user"
+                    string: "https://api.test.commmmmmm"
                 )!
             )
 
-            print("API KEY: \(self.apiKey)")
-            print("Password: \(self.password)")
-
             let user = self.users[0]
 
-            self.nameLabel.text = user
+            self.view.backgroundColor = .red
 
-            print("User Loaded")
+            print(self.password)
             print(data)
-            print("User: \(user)")
+            print(users)
         }
     }
 }
