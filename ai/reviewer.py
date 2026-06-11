@@ -10,7 +10,7 @@ def review_code(
     )
 
     payload = {
-        "model": "qwen2.5-coder:3b",
+        "model": "deepseek-coder:6.7b",
         "prompt": prompt,
         "stream": False,
         "options": {

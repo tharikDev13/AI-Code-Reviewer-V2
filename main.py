@@ -1,7 +1,12 @@
 from fastapi import FastAPI, Request
 
 from github.repository_manager import clone_repository
-from github.diff_extractor import get_diff
+
+from github.diff_extractor import (
+    get_diff,
+    get_incremental_diff
+)
+
 from github.changed_files import get_changed_files
 from github.pr_commenter import post_pr_comment
 
@@ -106,11 +111,30 @@ async def github_webhook(request: Request):
         "X-GitHub-Event"
     )
 
+    action = payload.get(
+        "action"
+    )
+
+    before_sha = payload.get(
+        "before"
+    )
+
+    after_sha = payload.get(
+        "after"
+    )
+
     print("Event:", event)
-
-    action = payload.get("action")
-
     print("Action:", action)
+
+    print(
+        "Before SHA:",
+        before_sha
+    )
+
+    print(
+        "After SHA:",
+        after_sha
+    )
 
     if event == "ping":
 
@@ -206,11 +230,45 @@ async def github_webhook(request: Request):
                 "\nStarting Diff Extraction..."
             )
 
-            diff = get_diff(
-                workspace_path,
-                target_branch,
-                source_branch
-            )
+            if action == "opened":
+
+                print(
+                    "\nReview Type: FULL PR REVIEW"
+                )
+
+                diff = get_diff(
+                    workspace_path,
+                    target_branch,
+                    source_branch
+                )
+
+            elif (
+                action == "synchronize"
+                and before_sha
+                and after_sha
+            ):
+
+                print(
+                    "\nReview Type: INCREMENTAL REVIEW"
+                )
+
+                diff = get_incremental_diff(
+                    workspace_path,
+                    before_sha,
+                    after_sha
+                )
+
+            else:
+
+                print(
+                    "\nReview Type: FALLBACK FULL REVIEW"
+                )
+
+                diff = get_diff(
+                    workspace_path,
+                    target_branch,
+                    source_branch
+                )
 
             print(
                 "\n===== PR DIFF =====\n"

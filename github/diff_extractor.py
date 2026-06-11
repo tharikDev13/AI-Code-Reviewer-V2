@@ -29,3 +29,29 @@ def get_diff(
         )
 
         return ""
+
+
+def get_incremental_diff(
+    repo_path,
+    before_sha,
+    after_sha
+):
+
+    repo = Repo(repo_path)
+
+    try:
+
+        diff_output = repo.git.diff(
+            before_sha,
+            after_sha
+        )
+
+        return diff_output
+
+    except Exception as e:
+
+        print(
+            f"Incremental Diff Error: {e}"
+        )
+
+        return ""
