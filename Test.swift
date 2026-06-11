@@ -23,7 +23,7 @@ class TestVC: UIViewController {
 
             print(self.password)
             print(data)
-            print(user)
+            print(users)
         }
     }
 }
