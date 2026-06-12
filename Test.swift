@@ -20,6 +20,7 @@ class TestVC: UIViewController {
             let user = self.users[0]
 
             self.view.backgroundColor = .red
+            self.view = .red
 
             print(self.password)
             print(data)
