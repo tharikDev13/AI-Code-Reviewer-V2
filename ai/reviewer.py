@@ -15,10 +15,21 @@ def review_code(
         "stream": False,
         "options": {
             "temperature": 0,
-            "top_p": 0.1,
-            "num_predict": 512
+            "top_p": 0,
+            "repeat_penalty": 1.0,
+            "num_predict": 256
         }
     }
+
+    print(
+        "\n===== OLLAMA PROMPT =====\n"
+    )
+
+    print(prompt)
+
+    print(
+        "\n=========================\n"
+    )
 
     response = requests.post(
         url,
@@ -30,7 +41,19 @@ def review_code(
 
     data = response.json()
 
-    return data.get(
+    review = data.get(
         "response",
         "No review generated."
     )
+
+    print(
+        "\n===== RAW MODEL RESPONSE =====\n"
+    )
+
+    print(review)
+
+    print(
+        "\n==============================\n"
+    )
+
+    return review.strip()

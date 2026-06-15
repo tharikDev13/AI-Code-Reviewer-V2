@@ -1,3 +1,4 @@
+from click import prompt
 from fastapi import FastAPI, Request
 
 from github.repository_manager import clone_repository
@@ -306,6 +307,12 @@ async def github_webhook(request: Request):
                 diff,
                 changed_files
             )
+            print( "\n===== GENERATED PROMPT =====\n")
+
+            print(prompt)
+
+            print("\n============================\n")
+
 
             review = review_code(
                 prompt
